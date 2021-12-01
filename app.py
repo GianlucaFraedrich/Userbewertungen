@@ -1,36 +1,23 @@
 from flask import Flask, render_template
-from flask_pymysql import MySQL
-
+from flask_mysqldb import MySQL
 
 app = Flask(__name__)
 
-# This example assumes a valid username and password are in the client section of a ~/.my.cnf file.
-# This is a well known standard for mysql/mariadb clients.
-# Example contents of ~/.my.cnf :
-# [client]
-# user = my_user_name
-# password = super_secret_password
-# This means your password is now not stored with your code!
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_DB'] = 'Userratings'
+app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
-connect_args = {'read_default_file': '~/.my.cnf',
-                'autocommit': True,
-                'cursorclass': 'DictCursor',
-                'user': 'root',
-                'password': '',
-                'host': '127.0.0.1',
-                'db': 'Userratings'
-                }
-
-mysql = MySQL(app.app_context())
-
-conn = mysql.connect(cursorclass='DictCursor')
-cursor = conn.cursor()
+mysql = MySQL(app)
 
 
 @app.route('/')
 def users():
-    cursor.execute('''SELECT * FROM content''')
-    rv = cursor.fetchall()
+    cur = mysql.connection.cursor()
+    cur.execute('''SELECT * FROM content''')
+    rv = cur.fetchall()
+    cur.close()
     print(rv)
     return render_template("index.html", movies=rv)
 

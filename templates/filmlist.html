@@ -1,0 +1,14 @@
+{% block content %}
+
+<div class="container">
+  {% for movie in movies %}
+  <ul id="movie.Titel">
+    <li>
+      <span class="field-name">Titel:</span>
+      <span class="field-value">{{ movie.Titel }}</span>
+    </li>
+  </ul>
+  {% endfor %}
+</div>
+
+{% endblock %}

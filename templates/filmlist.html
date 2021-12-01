@@ -5,7 +5,9 @@
   <ul id="movie.Titel">
     <li>
       <span class="field-name">Titel:</span>
-      <span class="field-value">{{ movie.Titel }}</span>
+      <span class="field-value"
+        ><a href="{{movie.url}}">{{ movie.Titel }}</a></span
+      >
     </li>
   </ul>
   {% endfor %}

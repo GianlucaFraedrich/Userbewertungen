@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_mysqldb import MySQL
 
 app = Flask(__name__)
@@ -13,13 +13,31 @@ mysql = MySQL(app)
 
 
 @app.route('/')
-def users():
+def home():
     cur = mysql.connection.cursor()
     cur.execute('''SELECT * FROM content''')
     rv = cur.fetchall()
     cur.close()
     print(rv)
-    return render_template("index.html", movies=rv)
+
+    movies_list = []
+    for x in rv:
+        url = 'http://127.0.0.1:5000/content?ContentID='+str(x['id'])
+        x['url'] = url
+        movies_list.append(x)
+
+    return render_template("index.html", movies=movies_list)
+
+
+@app.route('/content')
+def content():
+    # Gross und kleinschreibung ignorieren
+    ContentID = request.args.get('ContentID')
+    cur = mysql.connection.cursor()
+    cur.execute(f'''SELECT * FROM content WHERE id={ContentID}''')
+    rv = cur.fetchone()
+    cur.close()
+    return render_template('content.html', movie=rv)
 
 
 if __name__ == '__main__':

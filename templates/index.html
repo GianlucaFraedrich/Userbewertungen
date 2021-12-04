@@ -1,12 +1,22 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8" />
-    <title>Beste Bewertungsseite</title>
-    <link rel="stylesheet" href="/static/css/main.css">
-  </head>
-  <body>
-    <h1>Filme</h1>
-    {% include 'filmlist.html' %}
-  </body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+  <table id="content" class="content-list">
+    <tr>
+      <th>Titel</th>
+      <th>Release</th>
+      <th>Bewertung</th>
+    </tr>
+  {% for movie in movies %}
+    <tr>
+      <th><a href="{{movie.url}}">{{ movie.Titel }}</a></th>
+      <th>00-00-0000</th>
+      <th>⭐⭐⭐⭐⭐</th>
+    </tr>
+  {% endfor %}
+  </table>
+</div>
+
+{% endblock %}

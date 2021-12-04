@@ -2,3 +2,33 @@ body {
   background-color: black;
   color: white;
 }
+
+
+
+/*Link formating for main Page*/
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:active {
+  text-decoration: none;
+}
+
+/* visited link */
+a:visited {
+  color: rgb(99, 99, 99);
+}
+
+/* mouse over link */
+a:hover {
+  color: hotpink;
+}

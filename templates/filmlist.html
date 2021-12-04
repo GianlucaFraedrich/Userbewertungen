@@ -1,16 +1,20 @@
 {% block content %}
 
 <div class="container">
+  <table id="content" class="content-list">
+    <tr>
+      <th>Titel</th>
+      <th>Release</th>
+      <th>Bewertung</th>
+    </tr>
   {% for movie in movies %}
-  <ul id="movie.Titel">
-    <li>
-      <span class="field-name">Titel:</span>
-      <span class="field-value"
-        ><a href="{{movie.url}}">{{ movie.Titel }}</a></span
-      >
-    </li>
-  </ul>
+    <tr>
+      <th><a href="{{movie.url}}">{{ movie.Titel }}</a></th>
+      <th>00-00-0000</th>
+      <th>⭐⭐⭐⭐⭐</th>
+    </tr>
   {% endfor %}
+  </table>
 </div>
 
 {% endblock %}

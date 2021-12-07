@@ -18,7 +18,6 @@ def home():
     cur.execute('''SELECT * FROM content''')
     rv = cur.fetchall()
     cur.close()
-    print(rv)
 
     movies_list = []
     for x in rv:

@@ -1,6 +1,16 @@
+* {
+   margin: 0; padding: 0;
+}
+
+:root {
+  --main-theme-color: black;
+  --main-hover-color: green;
+}
+
 body {
   background-color: black;
   color: white;
+  margin: 0px;
 }
 
 
@@ -13,6 +23,7 @@ a:link {
 
 a:visited {
   text-decoration: none;
+  color: var(--main-hover-color);
 }
 
 a:hover {
@@ -23,12 +34,61 @@ a:active {
   text-decoration: none;
 }
 
-/* visited link */
-a:visited {
-  color: rgb(99, 99, 99);
-}
-
 /* mouse over link */
 a:hover {
-  color: hotpink;
+  color: var();
 }
+
+/* Table format */
+
+thead {
+  background: white;
+  color: black;
+  table-layout: fixed;
+  width: 100%
+} 
+
+th {
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 50%
+}
+/* Navbar */
+nav {
+  position: relative;
+  padding-top: 0px;
+  background: var(--main-theme-color);
+  margin: 0px;
+  border: 0px;
+}
+
+nav ul {
+  display: flex;
+  flex-direction: column;
+} 
+
+nav ul:hover {
+  background: green;
+}
+
+nav li {
+  list-style: none;
+  margin: 1em;
+  padding: 0;
+  font-size: 1.5em;
+}
+
+nav li:hover {
+  background: var(--main-hover-color);
+}
+
+@media (min-width: 45em) {
+  nav ul {	
+    flex-direction: row;  
+  }
+  nav li {
+    font-size: 1em;
+  }  
+}
+
+/*CSS for Star Rating */

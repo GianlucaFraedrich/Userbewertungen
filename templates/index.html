@@ -4,11 +4,11 @@
 
 <div class="container">
   <table id="content" class="content-list">
-    <tr>
+    <thead>
       <th>Titel</th>
       <th>Release</th>
       <th>Bewertung</th>
-    </tr>
+    </thead>
   {% for movie in movies %}
     <tr>
       <th><a href="{{movie.url}}">{{ movie.Titel }}</a></th>

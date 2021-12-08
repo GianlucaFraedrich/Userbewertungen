@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, url_for
+from flask import Flask, render_template, request, session, url_for, redirect
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import re
@@ -75,7 +75,7 @@ def login():
             session['id'] = account['ID']
             session['username'] = account['Nickname']
         # Redirect to home page
-            return 'Logged in successfully!'
+            return redirect(url_for('home'))
         else:
         # Account doesnt exist or username/password incorrect
             msg = 'Incorrect username/password!'

@@ -100,15 +100,23 @@ nav li:hover {
 }
 
 .stuff {
-  background: pink;
+  background: white;
   width: 200px;
   height: 200px;
 }
 
 .stuff1 {
+  position: relative;
+  background: grey;
+  width: 50%;
+  height: 50%;
+}
+.stuff2 {
   background: blue;
-  width: 100px;
-  height: 100px;
+  width: 50%;
+  height: 50%;
+  position: relative;
+  border-radius: 50%;
 }
 
 /*CSS for Star Rating */

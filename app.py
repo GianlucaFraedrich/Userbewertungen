@@ -21,11 +21,12 @@ def home():
 
     movies_list = []
     for x in rv:
-        url = 'http://127.0.0.1:5000/content?ContentID='+str(x['ID'])
+        url = 'http://127.0.0.1:5000/content?ContentID='+str(x['id'])
         x['url'] = url
         movies_list.append(x)
 
     return render_template("index.html", movies=movies_list)
+
 
 @app.route('/login/register', methods=['GET', 'POST'])
 def register():
@@ -42,6 +43,7 @@ def register():
     # Show registration form with message (if any)
     return render_template('register.html', msg=msg)
 
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     msg = 'login'
@@ -50,9 +52,10 @@ def login():
         password = request.form['password']
 
     cur = mysql.connection.cursor()
-    cur.execute(f'''SELECT * FROM our_users WHERE Nickname={username} AND pw_hash={password}''')
+    cur.execute(
+        f'''SELECT * FROM our_users WHERE Nickname={username} AND pw_hash={password}''')
     account = cur.fetchone()
-        # If account exists in accounts table in out database
+    # If account exists in accounts table in out database
     if account:
         # Create session data, we can access this data in other routes
         session['loggedin'] = True
@@ -65,14 +68,15 @@ def login():
         msg = 'Incorrect username/password!'
     return render_template('login.html', msg=msg)
 
+
 @app.route('/login/logout')
 def logout():
     # Remove session data, this will log the user out
-   session.pop('loggedin', None)
-   session.pop('id', None)
-   session.pop('username', None)
-   # Redirect to login page
-   return redirect(url_for('login'))
+    session.pop('loggedin', None)
+    session.pop('id', None)
+    session.pop('username', None)
+    # Redirect to login page
+    return redirect(url_for('login'))
 
 
 @app.route('/content')

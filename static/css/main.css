@@ -90,6 +90,11 @@ nav li:hover {
   background: lightgrey;
 }
 
+nav li.login {
+  position: absolute;
+  right: 1;
+}
+
 @media (min-width: 45em) {
   nav ul {
     flex-direction: row;
@@ -99,24 +104,13 @@ nav li:hover {
   }
 }
 
-.stuff {
-  background: white;
-  width: 200px;
-  height: 200px;
+nav li.blank {
+  width: 100%;
+  height: 0px;
 }
 
-.stuff1 {
-  position: relative;
-  background: grey;
-  width: 50%;
-  height: 50%;
-}
-.stuff2 {
-  background: blue;
-  width: 50%;
-  height: 50%;
-  position: relative;
-  border-radius: 50%;
+nav li.blank:hover {
+  background-color: black;
 }
 
 /*CSS for Star Rating */

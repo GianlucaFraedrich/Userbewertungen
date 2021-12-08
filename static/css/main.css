@@ -1,5 +1,6 @@
 * {
-   margin: 0; padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 :root {
@@ -11,9 +12,8 @@ body {
   background-color: black;
   color: white;
   margin: 0px;
+  font-family: Arial, Helvetica, sans-serif;
 }
-
-
 
 /*Link formating for main Page*/
 
@@ -34,7 +34,6 @@ a:active {
   text-decoration: none;
 }
 
-/* mouse over link */
 a:hover {
   color: var();
 }
@@ -45,14 +44,15 @@ thead {
   background: white;
   color: black;
   table-layout: fixed;
-  width: 100%
-} 
+  width: 100%;
+}
 
 th {
   padding-left: 10px;
   padding-right: 10px;
-  width: 50%
+  width: 50%;
 }
+
 /* Navbar */
 nav {
   position: relative;
@@ -65,10 +65,8 @@ nav {
 nav ul {
   display: flex;
   flex-direction: column;
-} 
-
-nav ul:hover {
-  background: green;
+  padding: 0;
+  margin: 0;
 }
 
 nav li {
@@ -76,19 +74,29 @@ nav li {
   margin: 1em;
   padding: 0;
   font-size: 1.5em;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin: 0;
+  text-align: center;
+}
+
+nav a {
+  padding: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 nav li:hover {
-  background: var(--main-hover-color);
+  background: lightgrey;
 }
 
 @media (min-width: 45em) {
-  nav ul {	
-    flex-direction: row;  
+  nav ul {
+    flex-direction: row;
   }
   nav li {
     font-size: 1em;
-  }  
+  }
 }
 
 /*CSS for Star Rating */

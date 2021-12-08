@@ -21,7 +21,7 @@ def home():
 
     movies_list = []
     for x in rv:
-        url = 'http://127.0.0.1:5000/content?ContentID='+str(x['ID'])
+        url = 'http://127.0.0.1:5000/content?ContentID='+str(x['id'])
         x['url'] = url
         movies_list.append(x)
 

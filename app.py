@@ -14,6 +14,7 @@ app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 mysql = MySQL(app)
 
+
 @app.route('/')
 def home():
     cur = mysql.connection.cursor()
@@ -23,11 +24,12 @@ def home():
 
     movies_list = []
     for x in rv:
-        url = 'http://127.0.0.1:5000/content?ContentID='+str(x['ID'])
+        url = 'http://127.0.0.1:5000/content?ContentID='+str(x['id'])
         x['url'] = url
         movies_list.append(x)
 
     return render_template("index.html", movies=movies_list)
+
 
 @app.route('/login/register', methods=['GET', 'POST'])
 def register():
@@ -39,7 +41,8 @@ def register():
         username = request.form['username']
         password = request.form['password']
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM our_users WHERE Nickname = %s', (username,))
+        cursor.execute(
+            'SELECT * FROM our_users WHERE Nickname = %s', (username,))
         account = cursor.fetchone()
         # If account exists show error and validation checks
         if account:
@@ -49,7 +52,8 @@ def register():
         elif not username or not password:
             msg = 'Please fill out the form!'
         else:
-            cursor.execute('INSERT INTO our_users (Nickname, pw_hash) VALUES (%s, %s)', (username, password,))
+            cursor.execute(
+                'INSERT INTO our_users (Nickname, pw_hash) VALUES (%s, %s)', (username, password,))
             mysql.connection.commit()
             msg = 'You have successfully registered!'
     elif request.method == 'POST':
@@ -57,6 +61,7 @@ def register():
         msg = 'Please fill out the form!'
     # Show registration form with message (if any)
     return render_template('register.html', msg=msg)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -66,29 +71,32 @@ def login():
         password = request.form['password']
 
         cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cur.execute('SELECT * FROM our_users WHERE Nickname=%s AND pw_hash=%s', (username, password))
+        cur.execute(
+            'SELECT * FROM our_users WHERE Nickname=%s AND pw_hash=%s', (username, password))
         account = cur.fetchone()
         # If account exists in accounts table in out database
         if account:
-        # Create session data, we can access this data in other routes
+            # Create session data, we can access this data in other routes
             session['loggedin'] = True
             session['id'] = account['ID']
             session['username'] = account['Nickname']
         # Redirect to home page
             return redirect(url_for('home'))
         else:
-        # Account doesnt exist or username/password incorrect
+            # Account doesnt exist or username/password incorrect
             msg = 'Incorrect username/password!'
     return render_template('login.html', msg=msg)
+
 
 @app.route('/login/logout')
 def logout():
     # Remove session data, this will log the user out
-   session.pop('loggedin', None)
-   session.pop('id', None)
-   session.pop('username', None)
-   # Redirect to login page
-   return redirect(url_for('login'))
+    session.pop('loggedin', None)
+    session.pop('id', None)
+    session.pop('username', None)
+    # Redirect to login page
+    return redirect(url_for('login'))
+
 
 @app.route('/content')
 def content():

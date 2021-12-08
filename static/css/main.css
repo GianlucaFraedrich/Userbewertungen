@@ -99,4 +99,16 @@ nav li:hover {
   }
 }
 
+.stuff {
+  background: pink;
+  width: 200px;
+  height: 200px;
+}
+
+.stuff1 {
+  background: blue;
+  width: 100px;
+  height: 100px;
+}
+
 /*CSS for Star Rating */

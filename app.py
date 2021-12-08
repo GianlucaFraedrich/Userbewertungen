@@ -31,10 +31,11 @@ def home():
 @app.route('/login')
 def login():
     msg = 'login'
-    if request.method = 'POST' and 'username' in request.form and 'password' in request.form:
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         username = request.form['username']
         password = request.form['password']
     return render_template('login.html')
+
 
 @app.route('/content')
 def content():

@@ -8,7 +8,7 @@ app.secret_key = "hallo"
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_PASSWORD'] = 'root'
 app.config['MYSQL_DB'] = 'Userratings'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
@@ -59,7 +59,7 @@ def register():
         password = request.form['password']
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute(
-            'SELECT * FROM our_users WHERE Nickname = %s', (username,))
+            'SELECT * FROM users WHERE username = %s', (username,))
         account = cursor.fetchone()
         # If account exists show error and validation checks
         if account:
@@ -70,7 +70,7 @@ def register():
             msg = 'Please fill out the form!'
         else:
             cursor.execute(
-                'INSERT INTO our_users (Nickname, pw_hash) VALUES (%s, %s)', (username, password,))
+                'INSERT INTO users (username, pw_hash) VALUES (%s, %s)', (username, password,))
             mysql.connection.commit()
             msg = 'You have successfully registered!'
     elif request.method == 'POST':
@@ -89,14 +89,14 @@ def login():
 
         cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cur.execute(
-            'SELECT * FROM our_users WHERE Nickname=%s AND pw_hash=%s', (username, password))
+            'SELECT * FROM users WHERE username=%s AND pw_hash=%s', (username, password))
         account = cur.fetchone()
         # If account exists in accounts table in out database
         if account:
             # Create session data, we can access this data in other routes
             session['loggedin'] = True
             session['id'] = account['ID']
-            session['username'] = account['Nickname']
+            session['username'] = account['username']
         # Redirect to home page
             return redirect(url_for('home'))
         else:

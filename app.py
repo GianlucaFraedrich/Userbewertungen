@@ -17,6 +17,11 @@ mysql = MySQL(app)
 
 @app.route('/')
 def home():
+    if session["loggedin"]:
+        print("Eingeloggt")
+        print(session["id"])
+    else:
+        print("Nicht eingellogt")
     cur = mysql.connection.cursor()
     cur.execute('''SELECT * FROM content''')
     rv = cur.fetchall()

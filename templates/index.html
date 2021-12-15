@@ -1,6 +1,4 @@
-{% extends "base.html" %}
-
-{% block content %}
+{% extends "base.html" %} {% include 'menu.html' %} {% block content %}
 
 <div class="container">
   <table id="content" class="content-list">
@@ -9,13 +7,13 @@
       <th>Release</th>
       <th>Bewertung</th>
     </thead>
-  {% for movie in movies %}
+    {% for movie in movies %}
     <tr>
       <th><a href="{{movie.url}}">{{ movie.Titel }}</a></th>
       <th>00-00-0000</th>
       <th>⭐⭐⭐⭐⭐</th>
     </tr>
-  {% endfor %}
+    {% endfor %}
   </table>
 </div>
 

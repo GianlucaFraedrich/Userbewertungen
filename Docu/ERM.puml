@@ -1,0 +1,41 @@
+@startuml
+
+entity User  {
+  + id (PK)
+  --
+  name
+  pw_hash
+}
+
+entity Bewertung  {
+  + id (PK)
+  --
+  # user id (FK)
+  # Content id (FK)
+  rating
+}
+
+entity Content {
+  + id (PK)
+  --
+  name
+}
+
+entity Genres {
+  # Genre id (FK)
+  # Content id (FK)
+}
+
+entity Genre {
+  + id (PK)
+  --
+  name
+}
+
+
+User -right-o{ Bewertung
+Bewertung }o-right- Content
+Content -down-o{ Genres
+Genres  }o-left- Genre
+
+@enduml

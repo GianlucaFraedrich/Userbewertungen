@@ -15,13 +15,23 @@ app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 mysql = MySQL(app)
 
 
+def menu():
+    Loggedinstate = {}
+    try:
+        if session["loggedin"]:
+            Loggedinstate["url"] = "/login/logout"
+            Loggedinstate["title"] = "Logout"
+        else:
+            Loggedinstate["title"] = "Login"
+            Loggedinstate["url"] = "/login"
+    except:
+        Loggedinstate["title"] = "Login"
+        Loggedinstate["url"] = "/login"
+    return Loggedinstate
+
+
 @app.route('/')
 def home():
-    if session["loggedin"]:
-        print("Eingeloggt")
-        print(session["id"])
-    else:
-        print("Nicht eingellogt")
     cur = mysql.connection.cursor()
     cur.execute('''SELECT * FROM content''')
     rv = cur.fetchall()
@@ -32,8 +42,7 @@ def home():
         url = 'http://127.0.0.1:5000/content?ContentID='+str(x['ID'])
         x['url'] = url
         movies_list.append(x)
-
-    return render_template("index.html", movies=movies_list)
+    return render_template("index.html", movies=movies_list, Loggedin=menu())
 
 
 @app.route('/login/register', methods=['GET', 'POST'])
@@ -65,7 +74,7 @@ def register():
         # Form is empty... (no POST data)
         msg = 'Please fill out the form!'
     # Show registration form with message (if any)
-    return render_template('register.html', msg=msg)
+    return render_template('register.html', msg=msg, Loggedin=menu())
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -90,7 +99,7 @@ def login():
         else:
             # Account doesnt exist or username/password incorrect
             msg = 'Incorrect username/password!'
-    return render_template('login.html', msg=msg)
+    return render_template('login.html', msg=msg, Loggedin=menu())
 
 
 @app.route('/login/logout')
@@ -100,7 +109,7 @@ def logout():
     session.pop('id', None)
     session.pop('username', None)
     # Redirect to login page
-    return redirect(url_for('login'))
+    return redirect("/")
 
 
 @app.route('/content')
@@ -111,7 +120,7 @@ def content():
     cur.execute(f'''SELECT * FROM content WHERE id={ContentID}''')
     rv = cur.fetchone()
     cur.close()
-    return render_template('content.html', movie=rv)
+    return render_template('content.html', movie=rv, Loggedin=menu())
 
 
 if __name__ == '__main__':

@@ -1,9 +1,10 @@
-{%block content%}
+{%block menu%}
 <nav>
   <ul>
     <li><a href="/">Home</a></li>
     <li class="blank" content=" "></li>
+    <li>{{Loggedin.username}}</li>
     <li><a href="{{Loggedin.url}}" class="login">{{Loggedin.title}}</a></li>
   </ul>
 </nav>
-{%endblock content%}
+{%endblock menu%}

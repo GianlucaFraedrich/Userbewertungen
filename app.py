@@ -21,12 +21,15 @@ def menu():
         if session["loggedin"]:
             Loggedinstate["url"] = "/login/logout"
             Loggedinstate["title"] = "Logout"
+            Loggedinstate["username"] = session["username"]
         else:
             Loggedinstate["title"] = "Login"
             Loggedinstate["url"] = "/login"
+            Loggedinstate["username"] = ""
     except:
         Loggedinstate["title"] = "Login"
         Loggedinstate["url"] = "/login"
+        Loggedinstate["username"] = ""
     return Loggedinstate
 
 

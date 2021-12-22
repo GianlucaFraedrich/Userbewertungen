@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, session, url_for, redirect
 from flask_mysqldb import MySQL
+import wikipedia
 import MySQLdb.cursors
 import re
 
@@ -123,7 +124,8 @@ def content():
     cur.execute(f'''SELECT * FROM content WHERE id={ContentID}''')
     rv = cur.fetchone()
     cur.close()
-    return render_template('content.html', movie=rv, Loggedin=menu())
+    description = wikipedia.summary(rv['Titel'])
+    return render_template('content.html', movie=rv, wiki=description, Loggedin=menu())
 
 
 if __name__ == '__main__':

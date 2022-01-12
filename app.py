@@ -8,7 +8,7 @@ app.secret_key = "hallo"
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'root'
+app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'Userratings'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
@@ -97,6 +97,7 @@ def login():
             session['loggedin'] = True
             session['id'] = account['ID']
             session['username'] = account['username']
+            session['admin'] = account['admin_flag']
         # Redirect to home page
             return redirect(url_for('home'))
         else:

@@ -19,7 +19,7 @@ body {
 
 a:link {
   text-decoration: none;
-  color: #8be9fd
+  color: #8be9fd;
 }
 
 a:visited {
@@ -115,3 +115,7 @@ nav li.blank:hover {
 }
 
 /*CSS for Star Rating */
+
+#loadOverlay {
+  display: none;
+}

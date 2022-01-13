@@ -1,8 +1,9 @@
 USE Userratings;
-INSERT INTO content (Titel) VALUES ("UP");
+INSERT INTO content (Titel) VALUES ("Up");
 INSERT INTO content (Titel) VALUES ("Inception");
-INSERT INTO content (Titel) VALUES ("Matrix");
+INSERT INTO content (Titel) VALUES ("The Matrix");
 INSERT INTO content (Titel) VALUES ("Geostorm");
+INSERT INTO content (Titel) VALUES ("My Little Pony: The Movie");
 INSERT INTO content (Titel) VALUES ("the ultimate showdown of ultimate destiny");
 INSERT INTO genre (genre) VALUES ("Comedy");
 INSERT INTO genre (genre) VALUES ("Action");

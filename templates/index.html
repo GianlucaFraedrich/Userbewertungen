@@ -9,8 +9,8 @@
     </thead>
     {% for movie in movies %}
     <tr>
-      <th><a href="{{movie.url}}">{{ movie.Titel }}</a></th>
-      <th>00-00-0000</th>
+      <th><a href="{{movie.url}}">{{ movie.title }}</a></th>
+      <th>{{movie.release_date}}</th>
       <th>⭐⭐⭐⭐⭐</th>
     </tr>
     {% endfor %}

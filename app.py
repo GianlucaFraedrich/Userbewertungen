@@ -1,8 +1,10 @@
-from flask import Flask, render_template, request, session, url_for, redirect
-from flask_mysqldb import MySQL
-import wikipedia
-import MySQLdb.cursors
 import re
+
+import MySQLdb.cursors
+from flask import Flask, redirect, render_template, request, session, url_for
+from flask_mysqldb import MySQL
+import wptools
+import wikipedia
 
 app = Flask(__name__)
 app.secret_key = "hallo"
@@ -10,11 +12,10 @@ app.secret_key = "hallo"
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = 'root'
-app.config['MYSQL_DB'] = 'Userratings'
+app.config['MYSQL_DB'] = 'movies'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 mysql = MySQL(app)
-
 
 def menu():
     Loggedinstate = {}
@@ -37,13 +38,13 @@ def menu():
 @app.route('/')
 def home():
     cur = mysql.connection.cursor()
-    cur.execute('''SELECT * FROM content''')
+    cur.execute('''SELECT movie_id,title,release_date FROM movie''')
     rv = cur.fetchall()
     cur.close()
 
     movies_list = []
     for x in rv:
-        url = 'http://127.0.0.1:5000/content?ContentID='+str(x['ID'])
+        url = 'http://127.0.0.1:5000/content?ContentID='+str(x['movie_id'])
         x['url'] = url
         movies_list.append(x)
     return render_template("index.html", movies=movies_list, Loggedin=menu())
@@ -87,7 +88,6 @@ def login():
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         username = request.form['username']
         password = request.form['password']
-
         cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cur.execute(
             'SELECT * FROM users WHERE username=%s AND pw_hash=%s', (username, password))
@@ -121,11 +121,16 @@ def content():
     # Gross und kleinschreibung ignorieren
     ContentID = request.args.get('ContentID')
     cur = mysql.connection.cursor()
-    cur.execute(f'''SELECT * FROM content WHERE id={ContentID}''')
+    cur.execute(f'''SELECT title,release_date FROM movie WHERE movie_id={ContentID}''')
     rv = cur.fetchone()
     cur.close()
-    description = wikipedia.summary(rv['Titel'])
-    return render_template('content.html', movie=rv, wiki=description, Loggedin=menu())
+    wiki_title = wikipedia.search(rv['title'])[0]
+    wiki = {}
+    wiki_page = wptools.page(wiki_title)
+    wiki_page.get_restbase('/page/summary/')
+    wiki[ 'pic' ] = wiki_page.images('url').pop()['url']
+    wiki['desc'] = wiki_page.data['extext']
+    return render_template('content.html', movie=rv, wiki=wiki, Loggedin=menu())
 
 
 if __name__ == '__main__':

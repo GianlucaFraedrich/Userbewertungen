@@ -161,17 +161,17 @@ Anzeige:
 
 ```
 
-  CREATE TABLE IF NOT EXISTS ratings (
-  ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  rating INT,
-  userID INT,
-  contentID INT
-  );
+     CREATE TABLE IF NOT EXISTS ratings (
+     ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+     rating INT,
+     userID INT,
+     contentID INT
+     );
 
-  CREATE TABLE IF NOT EXISTS genre (
-  ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  genre VARCHAR(255)
-  );
+     CREATE TABLE IF NOT EXISTS genre (
+     ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+     genre VARCHAR(255)
+     );
 
 ```
 

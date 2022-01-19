@@ -5,9 +5,18 @@
   - [__Datenbankentwurf__](#datenbankentwurf)
   - [__Übersicht Tabellen__](#übersicht-tabellen)
   - [__Überprüfung Normalform__](#überprüfung-normalform)
+    - [Tabelle: _User_](#tabelle-user)
+    - [Tabelle: _Bewertung_](#tabelle-bewertung)
+    - [Tabelle: _Content_](#tabelle-content)
+    - [Tabelle: _Genres_](#tabelle-genres)
+    - [Tabelle: _Genre_](#tabelle-genre)
   - [__Überlegungen zur Datenintegrität__](#überlegungen-zur-datenintegrität)
   - [__SQL Befehle__](#sql-befehle)
+    - [_Anzeige und Manipulation_](#anzeige-und-manipulation)
+    - [_Erstellen von Tabllen_](#erstellen-von-tabllen)
   - [__Extra Features__](#extra-features)
+    - [_Loginsystem_](#loginsystem)
+    - [_Erweitertes Suchsystem_](#erweitertes-suchsystem)
   
 
 ---
@@ -20,9 +29,9 @@ Ansprechpartner: Jan, Gianluca, Marius
 
 Zeitraum: 24.11.2021 - 19.01.2022
 
-Das von uns gestartete Projekt zielt darauf ab, eine Website zu verfügung zu stellen auf welcher es dem Nutzer möglich ist sowohl alte als auch neue Filmen zu bewerten. 
-Die Nutzerdaten und Filminformationen werden in einer Datenbank.
-Dies richtet sich nicht nur an junge Leute sondern auch an ältere, welche sich wieder jung fühlen können, wenn sie die Filme aus ihrer Jugend wiederfinden und sich diesen dann gegebenenfalls ausleihen und nochmal anschauen.
+Das von uns gestartete Projekt zielt darauf ab, eine Website zu verfügung zu stellen auf welcher es dem Nutzer möglich ist, sowohl alte als auch neue Filmen zu suchen und zu bewerten. 
+Die Nutzerdaten und Filminformationen werden in einer Datenbank gespeichert.
+Die Website richtet sich nicht nur an junge Leute sondern auch an ältere, welche sich wieder jung fühlen können, wenn sie die Filme aus ihrer Jugend wiederfinden.
 Die Gui soll simpel und leicht zu bedienen sein, so das es möglich ist ohne viel Kopfschmerzen sich auf der Seite zurechtzufinden.
 
 ---
@@ -60,6 +69,8 @@ _Relationsschreibweise_:
 
 --- 
 
+###  Tabelle: _User_
+
 ![Tabelle: User](users_table.png)
 
 - Die Tabelle ist in der dritten Normalform
@@ -67,6 +78,8 @@ _Relationsschreibweise_:
   - beinhaltet keine abhänigkeit zwischen   Nichtschlüsselattributen
 
     --- 
+
+###  Tabelle: _Bewertung_
 
 ![Tabelle: Bewertung](ratings_table.png)
 
@@ -76,6 +89,8 @@ _Relationsschreibweise_:
   
     --- 
 
+###  Tabelle: _Content_
+
 ![Tabelle: Content](Conent_table.png)
 
 - Die Tabelle ist in der dritten Normalform
@@ -84,13 +99,17 @@ _Relationsschreibweise_:
     
     --- 
 
+###  Tabelle: _Genres_
+
 ![Tabelle: Genres](Content_genre_table.png)
 
 - Die Tabelle ist in der dritten Normalform
 - zweite Normalform erfüllt
   - beinhaltet keine abhänigkeit zwischen Nichtschlüsselattributen
 
- --- 
+    --- 
+
+###  Tabelle: _Genre_
 
 ![Tabelle: Genre](genre_table.png)
 
@@ -104,7 +123,7 @@ _Relationsschreibweise_:
 
 ---
 
-- ja
+- Beim Löschen des Useraccounts werden seine getätigten Bewertungen mitgelöscht
 
 ---
 
@@ -112,36 +131,33 @@ _Relationsschreibweise_:
 
 ---
 
+### _Anzeige und Manipulation_
+
 Es folgen nun die SQL-Befehle, welche wir für die Manipulation und zum Anzeigen einzelner Datensätze benutzt habe.
 
 ```
 Manipulation:
 
-    SELECT ort.name AS Stadt, ort.Breite, land.Name AS Land
-    FROM ort,land
-    WHERE ort.LNR = land.LNR AND ort.Breite > 65 
-    ORDER BY ort.Breite DESC
-
-    SELECT ort.name AS Stadt, ort.Breite, land.Name AS Land
-    FROM ort,land
-    WHERE ort.LNR = land.LNR AND ort.Breite > 65 
-    ORDER BY ort.Breite DESC
+    'INSERT INTO users (username, pw_hash) 
+     VALUES (%s, %s)', (username, password,)
+  
+     INSERT INTO content (Titel) 
+     VALUES ("Geostorm");
 
 Anzeige:
 
-    SELECT ort.name AS Stadt, ort.Breite, land.Name AS Land
-    FROM ort,land
-    WHERE ort.LNR = land.LNR AND ort.Breite > 65 
-    ORDER BY ort.Breite DESC
+    'SELECT * 
+     FROM users 
+     WHERE username = %s', (username,)
 
-    SELECT ort.name AS Stadt, ort.Breite, land.Name AS Land
-    FROM ort,land
-    WHERE ort.LNR = land.LNR AND ort.Breite > 65 
-    ORDER BY ort.Breite DESC
+    'SELECT * 
+     FROM users 
+     WHERE username=%s AND pw_hash=%s', (username, password)
 
 ```
 
-Des Weiteren die SQL Befehle zum erstellen der Tabellen
+
+### _Erstellen von Tabllen_
 
 ```
 
@@ -165,7 +181,14 @@ Des Weiteren die SQL Befehle zum erstellen der Tabellen
 
 --- 
 
-Login:
+### _Loginsystem_
+  - User können sich registrieren
 
+    ---
+
+### _Erweitertes Suchsystem_
+  - Ermöglicht das Suchen nach spezifischen Kriterien
+ 
+---
     
 

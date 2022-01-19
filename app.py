@@ -22,7 +22,10 @@ def menu():
             Loggedinstate["url"] = "/login/logout"
             Loggedinstate["title"] = "Logout"
             Loggedinstate["username"] = session["username"]
-            Loggedinstate["admin"] = session['admin']
+            if(session['admin'] == b'\x01'):
+                Loggedinstate['admin'] = True
+            else:
+                Loggedinstate['admin'] = False
         else:
             Loggedinstate["title"] = "Login"
             Loggedinstate["url"] = "/login"
@@ -76,6 +79,18 @@ def home():
         url = 'http://127.0.0.1:5000/content/delete?ContentID='+str(x['ID'])
         x['del_url'] = url
         movies_list.append(x)
+
+    # Merken der angecheckten Boxen und wieder neu markieren
+    new_genre = []
+    if(matching_genres_ids != []):
+        for genre in genres:
+            genre['state'] = ""
+            for matching_genre_id in matching_genres_ids:
+                if(genre['ID'] == matching_genre_id):
+                    genre['state'] = "checked"  # Space is important
+            new_genre.append(genre)
+        genres = tuple(new_genre)
+
     return render_template("index.html", movies=movies_list, genres=genres, Loggedin=menu())
 
 
@@ -143,6 +158,7 @@ def logout():
     session.pop('loggedin', None)
     session.pop('id', None)
     session.pop('username', None)
+    session.pop('admin', None)
     # Redirect to login page
     return redirect("/")
 
@@ -154,7 +170,21 @@ def content():
     cur.execute(f'''SELECT * FROM content WHERE id={ContentID}''')
     rv = cur.fetchone()
     cur.close()
-    return render_template('content.html', movie=rv, Loggedin=menu())
+    if(session.get('admin') == b'\x01'):
+        # Get existing genres
+        cur = mysql.connection.cursor()
+        cur.execute('''SELECT * FROM genre''')
+        genres = cur.fetchall()
+        cur.close()
+        return render_template('content_admin.html', genres=genres, movie=rv, Loggedin=menu())
+    else:
+        # Just get the Genres to the specific movie
+        cur = mysql.connection.cursor()
+        cur.execute(
+            f'''SELECT * FROM genre, content_genre WHERE contentID={ContentID} AND genreID=genre.ID''')
+        genres = cur.fetchall()
+        cur.close()
+        return render_template('content.html', movie=rv, genres=genres, Loggedin=menu())
 
 
 @app.route('/content/delete')
@@ -162,13 +192,15 @@ def delete():
     cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     try:
         ContentID = int(request.args.get('ContentID'))
-        if(session['admin'] == b'\x01'):
+        if(session.get('admin') == b'\x01'):
             cur = mysql.connection.cursor()
             cur.execute(f'''DELETE FROM content WHERE id={ContentID}''')
             cur.close()
-        return "Deleted"
+        else:
+            return "403"
+        return redirect("/")
     except:
-        return "Verdammt"
+        return "...Fehlerbehandlung?"
 
 
 if __name__ == '__main__':

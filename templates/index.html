@@ -9,8 +9,9 @@
   </div>
   <div class="input-group rounded w-100 p-1 form-group">
     {% for genre in genres %}
-    <input id="{{genre.genre}}" name="{{genre.genre}}" class="form-check-input" type="checkbox" value="True" id="flexCheckDefault">
-    <label for="{{genre.genre}}" class="p-1">{{genre.genre}}</label>
+    <label for="flexCheckDefault" class="p-1">
+    <input name="{{genre.genre}}" class="form-check-input" type="checkbox" value="True" id="flexCheckDefault" {{genre.state}}>
+    {{genre.genre}}</label>
     {% endfor %}
   </div>
 </form>
@@ -18,22 +19,11 @@
   {% for movie in movies %}
   <tr>
     <td><a href="{{movie.url}}">{{ movie.Titel }}</a></td>
-    <td>00-00-0000</td>
+    <td>{{movie.release_date}}</td>
     <td>⭐⭐⭐⭐⭐</td>
+    {%if Loggedin.admin%}
     <td>
-      <!-- Call to action buttons -->
       <ul class="list-inline m-0">
-        <li class="list-inline-item">
-          <button
-            class="btn btn-success btn-sm rounded-0"
-            type="button"
-            data-toggle="tooltip"
-            data-placement="top"
-            title="Edit"
-          >
-            <i class="fa fa-edit"></i>
-          </button>
-        </li>
         <li class="list-inline-item">
             <button
               class="btn btn-danger btn-sm rounded-0"
@@ -48,8 +38,8 @@
         </li>
       </ul>
     </td>
+    {% endif %}
   </tr>
   {% endfor %}
 </table>
-
 {% endblock %}

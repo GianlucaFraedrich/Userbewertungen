@@ -1,0 +1,15 @@
+{% include 'content.html'%}
+<form action="" method="post">
+<label class="p-1">Genres:</label>
+{% for genre in genres %}
+<label for="flexCheckDefault" class="p-1">
+<input name="{{genre.genre}}" class="form-check-input" type="checkbox" value="True" id="flexCheckDefault" {{genre.state}}>
+{{genre.genre}}</label>
+{% endfor %}
+<div class="form-group">
+  <label for="InputTitel">Titel:</label>
+  <input type="email" class="form-control" id="InputTitel" placeholder="{{movie.Titel}}">
+</div>
+
+<button type="submit" class="btn btn-primary">Änderungen speichern</button>
+</form>

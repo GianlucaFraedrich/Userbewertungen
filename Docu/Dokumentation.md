@@ -60,7 +60,7 @@ _Relationsschreibweise_:
 
 --- 
 
-![Tabelle: Name](Url)
+![Tabelle: User](Url.png)
 
 - Die Tabelle ist in der dritten Normalform
   - zweite Normalform erfüllt
@@ -68,7 +68,7 @@ _Relationsschreibweise_:
 
     --- 
 
-![Tabelle: Name](Url)
+![Tabelle: Bewertung](Url.png)
 
 - Die Tabelle ist in der dritten Normalform
   - zweite Normalform erfüllt
@@ -76,7 +76,7 @@ _Relationsschreibweise_:
   
     --- 
 
-![Tabelle: Name](Url)
+![Tabelle: Content](Url.png)
 
 - Die Tabelle ist in der dritten Normalform
   - zweite Normalform erfüllt
@@ -84,7 +84,15 @@ _Relationsschreibweise_:
     
     --- 
 
-![Tabelle: Name](Url)
+![Tabelle: Genres](Url.png)
+
+- Die Tabelle ist in der dritten Normalform
+- zweite Normalform erfüllt
+  - beinhaltet keine abhänigkeit zwischen Nichtschlüsselattributen
+
+ --- 
+
+![Tabelle: Genre](Url.png)
 
 - Die Tabelle ist in der dritten Normalform
 - zweite Normalform erfüllt
@@ -97,11 +105,6 @@ _Relationsschreibweise_:
 ---
 
 - ja
-- 3
-- 3
-- 3
-- 
-
 
 ---
 

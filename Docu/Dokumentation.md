@@ -43,15 +43,15 @@ Im nachfolgendem Bild ist das Entiy-Relationship-Diagramm zusehen, welches uns a
 
 _Relationsschreibweise_:
 
-1. User(__Bewertung__, Name, PW-Hash)
+1. User(__Bewertung__, Name, PW-Hash, Admin flag)
 
 2. Bewertung(__ID__, ↑User-ID, ↑Content-Id, Rating)
 
-3. Content(__ID__, Name)
+3. Content(__ID__, Name, Release date)
 
 4. Genres(↑Genre-ID, ↑Content-ID)
 
-5. Genre(__ID__, Name)
+5. Genre(__ID__, Genre)
 
 
 --- 
@@ -60,7 +60,7 @@ _Relationsschreibweise_:
 
 --- 
 
-![Tabelle: User](Url.png)
+![Tabelle: User](users_table.png)
 
 - Die Tabelle ist in der dritten Normalform
   - zweite Normalform erfüllt
@@ -68,7 +68,7 @@ _Relationsschreibweise_:
 
     --- 
 
-![Tabelle: Bewertung](Url.png)
+![Tabelle: Bewertung](ratings_table.png)
 
 - Die Tabelle ist in der dritten Normalform
   - zweite Normalform erfüllt
@@ -76,7 +76,7 @@ _Relationsschreibweise_:
   
     --- 
 
-![Tabelle: Content](Url.png)
+![Tabelle: Content](Conent_table.png)
 
 - Die Tabelle ist in der dritten Normalform
   - zweite Normalform erfüllt
@@ -84,7 +84,7 @@ _Relationsschreibweise_:
     
     --- 
 
-![Tabelle: Genres](Url.png)
+![Tabelle: Genres](Content_genre_table.png)
 
 - Die Tabelle ist in der dritten Normalform
 - zweite Normalform erfüllt
@@ -92,7 +92,7 @@ _Relationsschreibweise_:
 
  --- 
 
-![Tabelle: Genre](Url.png)
+![Tabelle: Genre](genre_table.png)
 
 - Die Tabelle ist in der dritten Normalform
 - zweite Normalform erfüllt

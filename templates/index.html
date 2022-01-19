@@ -3,6 +3,17 @@
   href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
   rel="stylesheet"
 />
+<form action="/" method="get" class="w-100" >
+  <div class="input-group rounded w-100 p-1 form-group">
+      <input name="search" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+  </div>
+  <div class="input-group rounded w-100 p-1 form-group">
+    {% for genre in genres %}
+    <input id="{{genre.genre}}" name="{{genre.genre}}" class="form-check-input" type="checkbox" value="True" id="flexCheckDefault">
+    <label for="{{genre.genre}}" class="p-1">{{genre.genre}}</label>
+    {% endfor %}
+  </div>
+</form>
 <table class="table table-dark table-hover">
   {% for movie in movies %}
   <tr>
@@ -24,15 +35,16 @@
           </button>
         </li>
         <li class="list-inline-item">
-          <button
-            class="btn btn-danger btn-sm rounded-0"
-            type="button"
-            data-toggle="tooltip"
-            data-placement="top"
-            title="Delete"
-          >
-            <i class="fa fa-trash"></i>
-          </button>
+            <button
+              class="btn btn-danger btn-sm rounded-0"
+              type="button"
+              data-toggle="tooltip"
+              data-placement="top"
+              title="Delete"
+            >
+              <a class="fa fa-trash" href="{{movie.del_url}}"></a>
+            </button>
+          </form>
         </li>
       </ul>
     </td>
